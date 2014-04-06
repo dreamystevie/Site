@@ -1,51 +1,49 @@
 /* CSS Document */
 body {
-    font:12px georgia;
+    font:14px georgia;
     color: #222;
     text-align:center;
+    border:25px;
     padding:25px;
-    /*background-color:#D788E3;*/ }
+    padding-top:0px;
+}
   
 form, p, span {
     margin:0;
-    padding:0; }
+    padding:0;}
   
-input { font:12px georgia; }
+input { font:14px georgia;}
   
-a {
-    color:#0000AF;
-    text-decoration:none; }
-  
-    a:hover { text-decoration:underline; }
-  
-#wrapper, #loginform {
+a { color:#0000AF;
+    text-decoration:none;}
+#header {
+    height:50px;
+    text-align:center;
+    background-color:white;
+}
+
+#chat_room {
     margin:0 auto;
-    padding-top:25px;
-    padding-bottom:25px;
-    /*background:#f4c9ed;*/
-    width:1000px;}
-  
-#loginform { padding-top:18px; }
-  
-	#loginform p { margin: 5px; }
-  
-#chatbox {
     text-align:left;
-    margin:0 auto;
-    padding:5px;
-    background:#f4c9ed;
+    background:rgb(255, 255, 0);
+    opacity: 0.35;
+    border-radius:7px;
     height:450px;
     width:800px;
-    overflow:auto; }
-  
-#usermsg {
-    width:800px;
-    padding:5px; }
-  
-.error { color: #ff0000; }
-  
-.welcome { float:left; }
-  
-.logout { float:right; }
-  
-.msgln { margin:0 0 2px 0; }
+    overflow:auto;
+    box-shadow: 0 0 10px #888888;}
+
+#new_message_form {
+    padding-top:4px;
+    display:inline-block;
+    text-align:top;}
+
+#message {
+    padding:5px;
+    width:740px;}
+
+#credits {
+    padding-top:50px; 
+    text-align:bottom;
+    text-align:left;
+    font:8px georgia;}
