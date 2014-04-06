@@ -21,6 +21,7 @@ $(function() {
             roomId = roomInfo.send;
             console.log('assigning roomId to: ' + roomId);
             $('#chat_room').text("Hey we found somebody!");
+            $('#search').style.display='none';
             chat_subscription = client.subscribe(roomInfo.recv, function(data) {
                 $('<p></p>').html("Stranger: " + data).appendTo('#chat_room');
             });
@@ -40,6 +41,12 @@ $(function() {
         chat_subscription.cancel();
         client.publish(roomId, "The other person has left.");
         roomId = null;
+        $('#search').style.display='initial';
+        $('#search').src = "Search.jpg";
+        $('#search').id = "search";
+        $('#search').alt = "Search";
+        $('#search').onmouseover = "this.src = 'StopSearch.jpg'";
+        $('#search').onmouseout = "this.src = 'Search.jpg'";
     });
 
     // Handle form submissions and post messages to faye
@@ -47,7 +54,7 @@ $(function() {
       // Publish the message to the public channel
       msg = $('#message').val();
         client.publish(roomId, msg);
-        console.log("publishing to " + roomId)
+        console.log("publishing to " + roomId);
         $('<p></p>').html("You: " + msg).appendTo('#chat_room'); 
         $('#message').val('');
         return false;
@@ -55,16 +62,37 @@ $(function() {
 
       // Clear the message box
 
-    $('#debug').click(function() {
-        console.log(roomId);
-    });
-
-
   });
+</script>
+
+<script>
+function changeImage()
+{
+element = document.getElementById('search' || 'stopsearch');
+if (element.src.match("Stop"))
+  {
+  element.src = "StopSearch.jpg";
+  element.id = "stopsearch";
+  element.alt = "Stop Search";
+  element.onmouseover = "this.src = 'LightStopSearch.jpg'";
+  element.onmouseout = "this.src = 'StopSearch.jpg'";
+  }
+else
+  {
+  element.src = "Search.jpg";
+  element.id = "search";
+  element.alt = "Search";
+  element.onmouseover = "this.src = 'StopSearch.jpg'";
+  element.onmouseout = "this.src = 'Search.jpg'";
+  }
+}
 </script>
 
 <div class="chat_container">
   <div id="chat_room">
+    <form>
+        <input name="search" id="search" onclick = "changeImage()" type="image" align="top" src="Search.jpg" alt = "Search" value="Search" width="120" height="72" onmouseover="this.src = 'LightSearch.jpg'" onmouseout="this.src = 'Search.jpg'"/>
+    </form>
 </div>
 
 <form id="new_message_form">
@@ -72,7 +100,5 @@ $(function() {
     <input name="submitmsg" type="image" id="submitmsg" align="top" src="NewSend.jpg" alt="Submit" value="Submit" width="60" height="36" onmouseover="this.src = 'Send.jpg'" onmouseout="this.src = 'NewSend.jpg'"/>
     <input id="quitbtn" type="button" value="Quit">
     <input id="clearbtn" type="button" value="Clear">
-    <input id="search" type="button" value="Start Search">
-    <input id="stop_search" type="button" value="Stop Search">
 </form>
 </div>
