@@ -1,4 +1,5 @@
 <link type="text/css" rel="stylesheet" href="assets/stylesheets/ChatboxStyle.css" />
+<script src='http://randomcalfaye.herokuapp.com/faye.js'></script>
 
 <div id = "header">
     <img id="logo" src="assets/images/Logo.jpg" height="40" width="150" />
@@ -8,7 +9,7 @@
 <script>
 $(function() {
     // Create a new client to connect to Faye
-    var client = new Faye.Client('http://localhost:9292/faye');
+    var client = new Faye.Client('http://randomcalfaye.herokuapp.com/faye');
     var roomId = null;
     client.disable('websocket');
     var search_subscription = null;
