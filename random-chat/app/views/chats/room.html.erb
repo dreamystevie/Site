@@ -16,12 +16,12 @@ $(function() {
     var chat_subscription = null;
     $('#search').click(function() {
         // assumed that the user is already not in a chat already
+        $('#search').display = "none";
         $('#chat_room').text('Searching for somebody');
         search_subscription = client.subscribe('/search/' + '<%= session[:username] %>', function(roomInfo) {
             roomId = roomInfo.send;
             console.log('assigning roomId to: ' + roomId);
             $('#chat_room').text("Hey we found somebody!");
-            $('#search').style.display='none';
             chat_subscription = client.subscribe(roomInfo.recv, function(data) {
                 $('<p></p>').html("Stranger: " + data).appendTo('#chat_room');
             });
@@ -29,9 +29,6 @@ $(function() {
         });
     });
 
-    $('#stopsearch').click(function() {
-        search_subscription.cancel();
-    });
 
     $('#clearbtn').click(function() {
         $('#chat_room').text('');
@@ -40,13 +37,8 @@ $(function() {
     $('#quitbtn').click(function() {
         chat_subscription.cancel();
         client.publish(roomId, "The other person has left.");
+        $('#search').display = "initial";
         roomId = null;
-        $('#search').style.display='initial';
-        $('#search').src = "Search.jpg";
-        $('#search').id = "search";
-        $('#search').alt = "Search";
-        $('#search').onmouseover = "this.src = 'StopSearch.jpg'";
-        $('#search').onmouseout = "this.src = 'Search.jpg'";
     });
 
     // Handle form submissions and post messages to faye
@@ -65,35 +57,11 @@ $(function() {
   });
 </script>
 
-<script>
-function changeImage()
-{
-element = document.getElementById('search' || 'stopsearch');
-if (element.src.match("Stop"))
-  {
-  element.src = "StopSearch.jpg";
-  element.id = "stopsearch";
-  element.alt = "Stop Search";
-  element.onmouseover = "this.src = 'LightStopSearch.jpg'";
-  element.onmouseout = "this.src = 'StopSearch.jpg'";
-  }
-else
-  {
-  element.src = "Search.jpg";
-  element.id = "search";
-  element.alt = "Search";
-  element.onmouseover = "this.src = 'StopSearch.jpg'";
-  element.onmouseout = "this.src = 'Search.jpg'";
-  }
-}
-</script>
 
 <div class="chat_container">
   <div id="chat_room">
-    <form>
-        <input name="search" id="search" onclick = "changeImage()" type="image" align="top" src="Search.jpg" alt = "Search" value="Search" width="120" height="72" onmouseover="this.src = 'LightSearch.jpg'" onmouseout="this.src = 'Search.jpg'"/>
-    </form>
-</div>
+    <input name="search" id="search" type="image" align="center" src="Search.jpg" alt = "Search" value="Search" width="240" height="144" onmouseover="this.src = 'LightSearch.jpg'" onmouseout="this.src = 'Search.jpg'"/>
+  </div>
 
 <form id="new_message_form">
     <input name="message" type="text" id="message" margin-top= "1em" />
