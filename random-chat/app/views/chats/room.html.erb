@@ -16,7 +16,7 @@ $(function() {
     var chat_subscription = null;
     $('#search').click(function() {
         // assumed that the user is already not in a chat already
-        $('#search').display = "none";
+        $('#search').display = "hidden";
         $('#chat_room').text('Searching for somebody');
         search_subscription = client.subscribe('/search/' + '<%= session[:username] %>', function(roomInfo) {
             roomId = roomInfo.send;
