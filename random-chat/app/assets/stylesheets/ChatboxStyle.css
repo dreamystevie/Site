@@ -24,13 +24,16 @@ a { color:#0000AF;
 
 #chat_room {
     margin:0 auto;
-    text-align:left;
     background:rgb(255, 255, 166);
     border-radius:7px;
     height:450px;
     width:800px;
     overflow:auto;
     box-shadow: 0 0 10px #888888;}
+
+#chat_text {
+    text-align:left;
+}
 
 #search {
     text-align:center;

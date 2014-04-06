@@ -42,7 +42,7 @@ a { color:#0000AF;
 
 #chat_room {
     margin:0 auto;
-    text-align:left;
+    text-align:center;
     background:rgb(255, 255, 166);
     border-radius:7px;
     height:450px;
@@ -51,14 +51,16 @@ a { color:#0000AF;
     box-shadow: 0 0 10px #888888;}
 
 #greypart {
+	background:#C0C0C0;
 	height:100px;
 	width:75px;
 	border-radius:15px;
-	box-shadow: 0 0 20px rgb(255, 255, 166);}
+	box-shadow: 0 0 20px rgb(255, 255, 255);}
 
 #greysplit {
+	background:#C0C0C0;
 	height:100px;
 	width:59px;
 	border-radius:15px;
-	box-shadow: 0 0 20px rgb(255, 255, 166);
+	box-shadow: 0 0 20px rgb(255, 255, 255);
 }
