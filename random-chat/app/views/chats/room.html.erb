@@ -37,7 +37,7 @@ $(function() {
     $('#quitbtn').click(function() {
         chat_subscription.cancel();
         client.publish(roomId, "The other person has left.");
-        $('#search').display = "initial";
+        $('#search').display = "block";
         roomId = null;
     });
 
@@ -67,7 +67,6 @@ $(function() {
     <input name="message" type="text" id="message" margin-top= "1em" />
     <input name="submitmsg" type="image" id="submitmsg" align="top" src="NewSend.jpg" alt="Submit" value="Submit" width="60" height="36" onmouseover="this.src = 'Send.jpg'" onmouseout="this.src = 'NewSend.jpg'"/>
     <input name="quitbtn" type="image" id="quitbtn" align="top" src="DarkQuit.jpg" alt="Quit" value="Quit" width="60" height="36" onmouseover="this.src = 'Quit.jpg'" onmouseout="this.src = 'DarkQuit.jpg'"/>
-    <input id="clearbtn" type="button" value="Clear">
     <input name="clearbtn" type="image" id="clearbtn" align="top" src="Clear.jpg" alt="Clear" value="Clear" width="60" height="36" onmouseover="this.src = 'LightClear.jpg'" onmouseout="this.src = 'Clear.jpg'"/>
 </form>
 </div>
