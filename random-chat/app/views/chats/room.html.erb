@@ -1,5 +1,10 @@
-<h1>Chats#room</h1>
-<p>Find me in app/views/chats/room.html.erb</p>
+<link type="text/css" rel="stylesheet" href="assets/stylesheets/ChatboxStyle.css" />
+
+<div id = "header">
+    <img id="logo" src="assets/stylesheets/images/Logo.jpg" height="40" width="150" />
+    <br/>
+</div>
+
 <script>
 $(function() {
     // Create a new client to connect to Faye
@@ -62,13 +67,12 @@ $(function() {
 </div>
 
 <form id="new_message_form">
-    <input type="text" id="message" name="message">
-    <input type="submit" value="Send">
+    <input name="message" type="text" id="message" margin-top= "1em" />
+    <input name="submitmsg" type="image" id="submitmsg" align="top" src="assets/stylesheets/images/NewSend.jpg" alt="Submit" value="Submit" width="60" height="36" onmouseover="this.src = 'assets/stylesheets/images/Send.jpg'" onmouseout="this.src = 'assets/stylesheets/images/NewSend.jpg'"/>
     <input id="quitbtn" type="button" value="Quit">
     <input id="clearbtn" type="button" value="Clear">
     <input id="search" type="button" value="Start Search">
     <input id="stop_search" type="button" value="Stop Search">
     <input id="debug" type="button" value="debug info">
 </form>
-<p>search/stop search should be integrated into one single button</p>
 </div>
