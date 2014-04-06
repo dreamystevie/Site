@@ -1,55 +1,74 @@
 <h1>Chats#room</h1>
 <p>Find me in app/views/chats/room.html.erb</p>
-
 <script>
-  $(function() {
+$(function() {
     // Create a new client to connect to Faye
     var client = new Faye.Client('http://localhost:9292/faye');
- 
-    // Subscribe to the public channel
-    var public_subscription = client.subscribe('/messages/public', function(data) {
-      $('<p></p>').html(data.username + ": " + data.msg).appendTo('#chat_room');
+    var roomId = null;
+    client.disable('websocket');
+    var search_subscription = null;
+    var chat_subscription = null;
+    $('#search').click(function() {
+        // assumed that the user is already not in a chat already
+        $('#chat_room').text('Searching for somebody');
+        search_subscription = client.subscribe('/search/' + '<%= session[:username] %>', function(roomInfo) {
+            roomId = roomInfo.send;
+            console.log('assigning roomId to: ' + roomId);
+            $('#chat_room').text("Hey we found somebody!");
+            chat_subscription = client.subscribe(roomInfo.recv, function(data) {
+                $('<p></p>').html("Stranger: " + data).appendTo('#chat_room');
+            });
+            search_subscription.cancel();
+        });
     });
 
-    // Our own private channel
-    var private_subscription = client.subscribe('/messages/private/<%= session[:username] %>', function(data) {
-      $('<p></p>').addClass('private').html(data.username + ": " + data.msg).appendTo('#chat_room');
+    $('#stopsearch').click(function() {
+        search_subscription.cancel();
     });
- 
+
+    $('#clearbtn').click(function() {
+        $('#chat_room').text('');
+    });
+
+    $('#quitbtn').click(function() {
+        chat_subscription.cancel();
+        client.publish(roomId, "The other person has left.");
+        roomId = null;
+    });
+
     // Handle form submissions and post messages to faye
     $('#new_message_form').submit(function(){
       // Publish the message to the public channel
-      if (matches = $('#message').val().match(/@(.+) (.+)/)) {
-        client.publish('/messages/private/' + matches[1], {
-          username: '<%= session[:username] %>',
-          msg: matches[2]
-        });
-      }
-      else {
-        // It's a public message
-        client.publish('/messages/public', {
-          username: '<%= session[:username] %>',
-          msg: $('#message').val()
-        });
-      }
- 
-      // Clear the message box
-      $('#message').val('');
- 
-      // Don't actually submit the form, otherwise the page will refresh.
-      return false;
+      msg = $('#message').val();
+        client.publish(roomId, msg);
+        console.log("publishing to " + roomId)
+        $('<p></p>').html("You: " + msg).appendTo('#chat_room'); 
+        $('#message').val('');
+        return false;
     });
+
+      // Clear the message box
+
+    $('#debug').click(function() {
+        console.log(roomId);
+    });
+
+
   });
 </script>
 
 <div class="chat_container">
   <div id="chat_room">
-    <p class="alert"> Welcome to the chat room <%= session[:username] %>! </p>
-  </div>
- 
-  <form id="new_message_form">
-    <input type="text" id="message" name="message">
-    <input type="submit" value="Send">
-  </form>
 </div>
 
+<form id="new_message_form">
+    <input type="text" id="message" name="message">
+    <input type="submit" value="Send">
+    <input id="quitbtn" type="button" value="Quit">
+    <input id="clearbtn" type="button" value="Clear">
+    <input id="search" type="button" value="Start Search">
+    <input id="stop_search" type="button" value="Stop Search">
+    <input id="debug" type="button" value="debug info">
+</form>
+<p>search/stop search should be integrated into one single button</p>
+</div>
