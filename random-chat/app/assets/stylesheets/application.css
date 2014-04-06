@@ -55,3 +55,10 @@ a { color:#0000AF;
 	width:75px;
 	border-radius:15px;
 	box-shadow: 0 0 20px rgb(255, 255, 166);}
+
+#greysplit {
+	height:100px;
+	width:59px;
+	border-radius:15px;
+	box-shadow: 0 0 20px rgb(255, 255, 166);
+}
