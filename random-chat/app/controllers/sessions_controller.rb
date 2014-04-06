@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     session[:username] = params[:username]
-    render :text => "Welcome #{session[:username]}!"
+    redirect_to "/chatroom"
+    #render :text => "Welcome #{session[:username]}!"
   end
 end

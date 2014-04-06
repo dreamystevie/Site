@@ -13,6 +13,7 @@ class ClientEvent
         if message['channel'] == '/meta/disconnect' || message['channel'] == '/meta/unsubscribe'
             # remove the ID from array
             idToRemove = message['clientId']
+            client.publish('/' + idToRemove, "The other person has left")
             @@searching.each do |val|
                 if val.id == idToRemove
                     @@searching.delete(val)
