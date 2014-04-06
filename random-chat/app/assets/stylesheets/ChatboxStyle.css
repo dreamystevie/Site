@@ -32,6 +32,10 @@ a { color:#0000AF;
     overflow:auto;
     box-shadow: 0 0 10px #888888;}
 
+#search {
+    text-align:center;
+}
+
 #new_message_form {
     padding-top:4px;
     display:inline-block;
